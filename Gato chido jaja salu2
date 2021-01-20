@@ -1,0 +1,207 @@
+#include<stdio.h>
+#include<stdlib.h>
+int tiro(int cas);
+void winer();
+void matriz();
+int f;
+int c;
+int x,y,casilla;
+char M[3][3], modo;
+int ganador=0;
+int main(){
+printf("Bienvenido al juego del gato \n");
+printf("Gatos Jazz\n");
+for(x=0;x<3;x++){
+    for(y=0;y<3;y++){
+        M[x][y]=' ';
+        printf("[%c]",M[x][y]); 
+        }
+    printf("\n");
+}
+printf("Para jugar P vs P presiona P \n");
+printf("Para jugar P vs C presiona C \n");
+printf("Para Salir del juego preiona E \n");
+scanf("%c",&modo);
+
+// Player vs Player
+if(modo=='P' || modo=='p'){
+	system("cls");
+	printf("Modo Player vs Player \n");
+	system("pause");
+	matriz();
+int turno=1;
+	do{
+		//TURNO DEL JUGADOR 1
+		if(turno==1){
+			do {
+			printf("Jugador 1\n");
+			printf("Digita la casilla en la que quieras tirar\n");
+			scanf("%d",&casilla);
+			tiro(casilla);	 
+				if(M[f][c]=='X' || M[f][c]=='O' || f > 2 ||c > 2){
+           			 printf("\n Espacio ocupado, Ingrese nuevos valores .\n");
+           			 matriz();
+           	    }
+			}while(M[f][c]=='X' || M[f][c]=='O' || f>2 || c>2);
+		
+		M[f][c]='X';
+		matriz();
+       	turno=2;
+		}
+		winer();
+		// TURNO DEL JUGADOR 2
+		if(turno==2){
+			do {
+			printf("Jugador 2\n");
+			printf("Digita la casilla en la que quieras tirar\n");
+			scanf("%d",&casilla);
+			tiro(casilla);	 
+				if(M[f][c]=='X' || M[f][c]=='O' || f > 2 ||c > 2){
+           		 printf("\n Espacio ocupado, Ingrese nuevos valores .\n");
+           		 matriz();
+           	    }
+			}while(M[f][c]=='X' || M[f][c]=='O' || f>2 || c>2);
+		M[f][c]='O';
+		matriz();
+       	turno=1;
+		}
+	 winer();	
+	}while(ganador==0);
+  }
+  // Modo Player vs CPU
+if(modo=='C'|| modo=='c'){
+	system("cls");
+	printf("Modo Player vs CPU");
+	
+}
+}
+
+// Funciones 
+void matriz(){
+   system("cls");
+	for(x=0;x<3;x++){
+       for(y=0;y<3;y++){
+        printf("|%c|",M[x][y]);
+        }
+  	printf("\n");
+ 	}
+}
+
+// Funcion para determinar el ganador 
+void winer(){
+int jugador1,jugador2;
+char won;
+// Horizontales 
+for(x=0;x<3;x++){
+	jugador1=0;
+	jugador2=0;
+    for(y=0;y<3;y++){
+    won=M[x][y];
+        if(won=='X'){
+    	jugador1=jugador1+1;
+    	}
+    	if(won=='O'){
+    	jugador2=jugador2+1;
+    	}
+		if(jugador1==3){
+			printf("gano el de las x");
+			ganador=1;
+		}
+		if(jugador2==3){
+			printf("gano el de las 0");
+			ganador=1;
+		}	
+	}
+}
+// verticales
+for(y=0;y<3;y++){
+	jugador1=0;
+	jugador2=0;
+    for(x=0;x<3;x++){
+    won=M[x][y];
+        if(won=='X'){
+    	jugador1=jugador1+1;
+    	}
+    	if(won=='O'){
+    	jugador2=jugador2+1;
+    	}
+		if(jugador1==3){
+			printf("gano el de las x");
+			ganador=1;
+		}
+		if(jugador2==3){
+			printf("gano el de las 0");
+			ganador=1;
+		}	
+	}
+}
+//Diagonales
+if(M[0][2]==M[1][1] && M[1][1]==M[2][0]){
+char caso;
+caso=M[0][2];
+	if(caso=='X'){
+		printf("Gano la puta de las x");
+		ganador=1;
+	}
+		if(caso=='Y'){
+		printf("Gano la puta de las y");
+		ganador=1;
+	}
+	
+}
+if(M[0][0]==M[1][1] && M[1][1]==M[2][2]){
+char caso;
+caso=M[0][2];
+	if(caso=='X'){
+		printf("Gano la puta de las x");
+		ganador=1;
+	}
+		if(caso=='Y'){
+		printf("Gano la puta de las y");
+		ganador=1;
+	}
+	
+}
+}
+
+// SELECCION DE CASILLA
+int tiro(int cas){
+	switch(cas){
+		case 1: 
+		f=0;
+		c=0;
+		break;
+		case 2:
+		f=0;
+		c=1;
+		break;
+		case 3: 
+		f=0;
+		c=2;
+		break;
+		case 4:
+		f=1;
+		c=0;
+		break;
+		case 5: 
+		f=1;
+		c=1;
+		break;
+		case 6:
+		f=1;
+		c=2;
+		break;
+		case 7: 
+		f=2;
+		c=0;
+		break;
+		case 8:
+		f=2;
+		c=1;
+		break;
+		case 9: 
+		f=2;
+		c=2;
+		break;	
+	}	
+}
